@@ -1,0 +1,24 @@
+/* Define macro variables */
+%let kpi = 'sales'; /* KPI: sales, profit, or customer count */
+%let metric = 'mean'; /* Metric: mean, sum, or count */
+
+/* Define macro */
+%macro kpi_metrics(kpi, metric);
+
+    /* Use PROC SUMMARY to compute KPI metrics */
+    proc summary data=mydata;
+        class region;
+        var &kpi;
+        output out=kpi_metrics mean= (&metric(&kpi)=) / autoname;
+    run;
+
+    /* Output results to the SAS log */
+    data _null_;
+        set kpi_metrics;
+        put region= &kpi=;
+    run;
+
+%mend kpi_metrics;
+
+/* Call the macro, specifying the KPI and metric */
+%kpi_metrics(kpi=&kpi, metric=&metric);
