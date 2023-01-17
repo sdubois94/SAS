@@ -1,0 +1,20 @@
+/* TODAY() Example */
+data _null_;
+   today_date = today();
+   put today_date= date9.;
+run;
+
+/* INTNX() Example */
+data _null_;
+   today_date = today();
+   next_month = intnx('month', today_date, 1);
+   put next_month= date9.;
+run;
+
+/* INTCK() Example */
+data _null_;
+   start_date = '2022-01-01';
+   end_date = '2022-06-01';
+   interval = intck('month', start_date, end_date);
+   put interval=;
+run;
