@@ -1,0 +1,22 @@
+/* Connect to the database and import the data */
+libname mydb  sqlserver user=username password=password;
+proc sql;
+   create table visitors as 
+   select * from connection to mydb
+   (
+      select group, conversion
+      from mydata
+   );
+quit;
+
+/* Calculate the conversion rate for each group */
+proc freq data = visitors;
+tables group*conversion / nocum nopercent;
+run;
+
+/* Test the difference between the conversion rate of the champion and challenger */
+proc ttest data = visitors;
+class group;
+var conversion;
+by group;
+run;
