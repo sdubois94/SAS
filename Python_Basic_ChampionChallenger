@@ -1,0 +1,49 @@
+import random
+
+# Define the champion and challenger
+champion = "champion_variation"
+challenger = "challenger_variation"
+
+# Define the total number of visitors
+total_visitors = 10000
+
+# Divide the visitors into two groups: champion and challenger
+champion_visitors = int(total_visitors * 0.5)
+challenger_visitors = total_visitors - champion_visitors
+
+# Assign the visitors to either the champion or challenger variation
+champion_group = [champion] * champion_visitors
+challenger_group = [challenger] * challenger_visitors
+
+# Combine the champion and challenger groups into one list
+groups = champion_group + challenger_group
+
+# Shuffle the list of visitors to ensure a random assignment
+random.shuffle(groups)
+
+# Track the number of conversions for each variation
+champion_conversions = 0
+challenger_conversions = 0
+
+# Simulate the test by looping through the list of visitors
+for visitor in groups:
+    if visitor == champion:
+        # Simulate a conversion with a probability of 0.1
+        if random.random() < 0.1:
+            champion_conversions += 1
+    else:
+        # Simulate a conversion with a probability of 0.2
+        if random.random() < 0.2:
+            challenger_conversions += 1
+
+# Calculate the conversion rate for each variation
+champion_conversion_rate = champion_conversions / champion_visitors
+challenger_conversion_rate = challenger_conversions / challenger_visitors
+
+# Compare the conversion rates to determine the winner
+if challenger_conversion_rate > champion_conversion_rate:
+    winner = challenger
+else:
+    winner = champion
+
+print(f"The winner is: {winner}")
